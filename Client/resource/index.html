@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap.css">
+    <link rel="stylesheet" href="./photoswipe.css">
+    <script src="./axios.min.js"></script>
+    <script src="./request.js"></script>
+    <title>Explorer</title>
+    <style>
+        .card {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .card:active {
+            background-color: rgb(49 132 253 / 50%);
+        }
+    </style>
+    <style id="style">
+        .card {
+            width: 10rem;
+        }
+    </style>
+</head>
+
+<body class="bg-white" style="overflow-x: hidden;">
+    <div class="toolbar p-2">
+        <button class="btn btn-primary" onclick="handleBack()">返回</button>
+        <button type="button" class="btn btn-danger" onclick="handleSize(1)">放大</button>
+        <button type="button" class="btn btn-warning" onclick="handleSize(-1)">缩小</button>
+        <button type="button" class="btn btn-info" onclick="handleSize(50)">对半</button>
+        <button type="button" class="btn btn-light" onclick="handleSize(0)">重置</button>
+        <button type="button" class="btn btn-light" onclick="handleFull()">全屏</button>
+    </div>
+    <div id="page" class="page row align-items-start justify-content-start px-2"></div>
+    <a href="http://"></a>
+</body>
+<script>
+    const historyData = []
+    let items = []
+    let size = 10
+
+    function handleFull(){
+        document.documentElement.requestFullscreen()
+    }
+
+    function handleSize(num) {
+        const style = document.getElementById('style')
+        if (num === 0) {
+            size = 10
+        }
+        if (num === 50) {
+            style.innerHTML = `
+            .card {
+                width: 50%;
+            }`
+            return
+        }
+        size += num
+        style.innerHTML = `
+            .card {
+                width: ${size}rem;
+            }`
+    }
+
+    function handleBack() {
+        if (historyData.length > 0) {
+            items = historyData.pop()
+            console.log(items)
+            showCards()
+        }
+    }
+
+    function openDir(path) {
+        sendGet('dir?dir=' + path, res => {
+            items = res
+            console.log(res)
+            showCards()
+        })
+    }
+
+    function handlClick(item) {
+        if (item.fileType === 'DIR') {
+            historyData.push(items)
+            openDir(item.filePath)
+        } else if (item.fileType === 'IMAGE') {
+            // window.open('./photo.html')
+            const index = items.indexOf(item)
+            openPhoto(index)
+        }
+    }
+
+    function createCard(item) {
+        const container = document.createElement('div')
+        container.innerHTML = `
+            <div class="card border-0 d-inline-block mb-2">
+                <img class="card-img-top w-100">
+                <div class="card-body">
+                    <p class="card-title text-center"></p>
+                </div>
+            </div>`
+        container.getElementsByTagName('img')[0].src = item.previewUrl
+        container.getElementsByTagName('p')[0].innerText = item.fileName
+        const card = container.children[0]
+        document.getElementById('page').appendChild(card)
+        card.addEventListener('click', () => {
+            handlClick(item)
+        })
+    }
+
+    function showCards() {
+        document.getElementById('page').innerHTML = ''
+        items.forEach(item => {
+            createCard(item)
+        })
+    }
+
+    openDir('')
+
+</script>
+
+<script type="module">
+    import PhotoSwipeLightbox from './photoswipe-lightbox.esm.js';
+    import PhotoSwipe from './photoswipe.esm.js';
+    function openPhoto(index) {
+        const options = {
+            dataSource: items.map(item => ({
+                src: item.previewUrl,
+                width: item.previewSize.width,
+                height: item.previewSize.height,
+                alt: item.fileName
+            })),
+            showHideAnimationType: 'none',
+            pswpModule: PhotoSwipe
+        };
+        const lightbox = new PhotoSwipeLightbox(options);
+        lightbox.init();
+        lightbox.loadAndOpen(index)
+    }
+    window.openPhoto = openPhoto
+</script>
+
+</html>

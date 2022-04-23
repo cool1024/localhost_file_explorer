@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/explorerFragment">
+
+    <fragment
+        android:id="@+id/explorerFragment"
+        android:name="com.example.explorer.ExplorerFragment"
+        android:label="Explorer"
+        tools:layout="@layout/fragment_explorer">
+        <action
+            android:id="@+id/action_explorerFragment_self"
+            app:destination="@id/explorerFragment"/>
+        <argument
+            android:name="path"
+            android:defaultValue=""
+            app:argType="string" />
+        <action
+            android:id="@+id/action_explorerFragment_to_videoActivity"
+            app:destination="@id/videoActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.explorer.SettingsFragment"
+        android:label="SettingsFragment" />
+
+    <activity
+        android:id="@+id/videoActivity"
+        android:name="com.example.explorer.VideoActivity"
+        android:label="Video"
+        tools:layout="@layout/activity_video">
+        <argument
+            android:name="path"
+            android:defaultValue=""
+            app:argType="string" />
+    </activity>
+
+</navigation>

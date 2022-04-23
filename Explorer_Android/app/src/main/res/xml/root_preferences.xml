@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Server">
+
+        <EditTextPreference
+            android:key="host"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Server address"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:key="cache"
+            app:title="Using cache" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Msg">
+        <EditTextPreference
+            android:key="msg"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Clipboard"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
