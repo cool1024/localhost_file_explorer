@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer</title>
+    <link rel="stylesheet" href="./video-js.css">
+    <script src="./video.min.js"></script>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .video-js{
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="my-video" class="video-js" controls preload="auto"> </video>
+    <script>
+        const video = JSON.parse(localStorage.getItem('video'))
+        const dom = document.getElementById('my-video')
+        dom.setAttribute('poster', video.previewUrl)
+        const myPlayer = videojs('my-video');
+        myPlayer.src({ type: 'video/mp4', src: video.downloadUrl });
+    </script>
+</body>
+
+</html>

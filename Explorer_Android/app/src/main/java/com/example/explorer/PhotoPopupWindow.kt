@@ -1,13 +1,14 @@
 package com.example.androidx_example.fragments.album
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupWindow
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.viewpager.widget.PagerAdapter
 import com.example.explorer.GlideApp
 import com.example.explorer.databinding.WindowPhotoBinding
@@ -34,7 +35,6 @@ class PhotoPopupWindow(
         }
         setBackgroundDrawable(ColorDrawable(Color.BLACK))
     }
-
 
     class PhotoPagerAdapter(private val items: Array<String>) : PagerAdapter() {
 
@@ -69,8 +69,12 @@ class PhotoPopupWindow(
             context: Context,
             rootView: ViewGroup
         ) {
-            PhotoPopupWindow(activeIndex, photos, context, rootView)
-                .showAtLocation(rootView, Gravity.CENTER, rootView.x.toInt(), rootView.y.toInt())
+            PhotoPopupWindow(activeIndex, photos, context, rootView).showAtLocation(
+                rootView,
+                Gravity.CENTER,
+                rootView.x.toInt(),
+                rootView.y.toInt()
+            )
         }
     }
 }

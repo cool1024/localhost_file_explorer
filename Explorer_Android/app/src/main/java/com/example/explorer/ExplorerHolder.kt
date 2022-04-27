@@ -64,12 +64,14 @@ class ExplorerHolder(private val binding: ExplorerItemBinding, view: View) :
                             .navigate(ExplorerFragmentDirections.actionExplorerFragmentSelf(item.filePath))
                     }
                     FileType.IMAGE -> {
-                        val photos = items.filter {  it.fileType.equals(FileType.IMAGE.name) }
+                        val photos = items.filter { it.fileType.equals(FileType.IMAGE.name) }
                         val activeIndex = photos.indexOf(item)
-                        PhotoPopupWindow.createAndShow(activeIndex,
+                        PhotoPopupWindow.createAndShow(
+                            activeIndex,
                             photos.map { it.previewUrl }.toTypedArray(),
                             itemView.context,
-                            itemView as ViewGroup)
+                            itemView as ViewGroup
+                        )
                     }
                     FileType.VIDEO -> {
                         it.findNavController()

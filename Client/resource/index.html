@@ -44,7 +44,7 @@
     let items = []
     let size = 10
 
-    function handleFull(){
+    function handleFull() {
         document.documentElement.requestFullscreen()
     }
 
@@ -91,6 +91,10 @@
             // window.open('./photo.html')
             const index = items.indexOf(item)
             openPhoto(index)
+        } else if (item.fileType === 'VIDEO') {
+            localStorage.setItem('video', JSON.stringify(item))
+            window.open('./video.html')
+            // window.open('./vr/index.html')
         }
     }
 

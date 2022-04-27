@@ -22,7 +22,7 @@ const createWindow = () => {
     mainWindow.loadFile('./resource/index.html')
 
     // Open DevTool
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {

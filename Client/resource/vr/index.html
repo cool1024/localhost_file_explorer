@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <title>VR-player</title>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=No'>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link href='Css/style_small.css' rel='stylesheet' type='text/css' media='screen and (max-width: 499px)'>
+  <link href='Css/style_medium.css' rel='stylesheet' type='text/css'
+    media='screen and (min-width: 500px) and (max-width: 900px)'>
+  <link href='Css/style_large.css' rel='stylesheet' type='text/css' media='screen and (min-width: 901px)'>
+  <script type="text/javascript" src="Scripts/jquery-3.1.0.min.js"></script>
+  <!--[if lt IE 9]><script src="Scripts/css3-mediaqueries.js"></script><![endif]-->
+  <script>var WebVRConfig = { DEFER_INITIALIZATION: true, DIRTY_SUBMIT_FRAME_BINDINGS: true, BUFFER_SCALE: 0.5, }</script>
+  <script type="text/javascript" src="Scripts/webvr-polyfill.js"></script>
+  <script>InitializeWebVRPolyfill();</script>
+  <script type="text/javascript" src="Scripts/gl-matrix-min.js"></script>
+  <script type="text/javascript" src="Scripts/goodav-vrplayer-release.js"></script>
+</head>
+
+<body style="padding:0;margin: 0;">
+  <div id='wrap' class='video_frame' style="margin: 0 auto; margin-top:14px; width:100vw; height:100vh;">
+    <canvas id='webgl-canvas'></canvas>
+    <script>
+      const item = JSON.parse(localStorage.getItem('video'))
+      const dom = document.getElementById('my-video')
+      player = new GoodavVrPlayer(document.getElementById("wrap"), document.getElementById("webgl-canvas"), item.downloadUrl);
+    </script>
+  </div>
+</body>
+
+</html>

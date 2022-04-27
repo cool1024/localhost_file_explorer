@@ -26,8 +26,10 @@
         </activity>
 
         <activity
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:name=".VideoActivity"/>
+            android:name=".VideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
     </application>
 
